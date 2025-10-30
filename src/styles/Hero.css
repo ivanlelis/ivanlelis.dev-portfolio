@@ -112,7 +112,7 @@
         }
 
         .hero-visual-wrapper {
-            max-width: min(14rem, 80%);
+            max-width: min(20rem, 80%);
             margin: 2rem auto 0;
             order: 2;
             display: block;

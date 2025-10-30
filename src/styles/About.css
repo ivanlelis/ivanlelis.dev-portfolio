@@ -3,6 +3,8 @@
 @layer components {
     .about-section {
         @apply section;
+        position: relative;
+        top: -5rem;
     }
 
     .about-container {
