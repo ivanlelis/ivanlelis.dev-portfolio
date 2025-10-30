@@ -110,6 +110,104 @@
     }
 }
 
+/* XL Desktop (1280px - 1535px) */
+@media (min-width: 1280px) and (max-width: 1535px) {
+    nav .glass {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1.25rem;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    /* Brand sits in the left column */
+    nav .glass .brand {
+        grid-column: 1 / 2;
+        justify-self: start;
+        margin: 0;
+        position: static;
+        transform: none;
+        max-width: none;
+        font-size: 1.125rem;
+    }
+
+    /* Nav center sits in the middle column and is centered horizontally */
+    .nav-center {
+        grid-column: 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-center button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Nav right (e.g., actions) sits on the right */
+    .nav-right {
+        grid-column: 3 / 4;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+}
+
+/* 2XL Desktop (1536px+) */
+@media (min-width: 1536px) {
+    nav .glass {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1.5rem;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
+    /* Brand sits in the left column */
+    nav .glass .brand {
+        grid-column: 1 / 2;
+        justify-self: start;
+        margin: 0;
+        position: static;
+        transform: none;
+        max-width: none;
+        font-size: 1.25rem;
+    }
+
+    /* Nav center sits in the middle column and is centered horizontally */
+    .nav-center {
+        grid-column: 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .nav-center button {
+        padding: 0.7rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    /* Nav right (e.g., actions) sits on the right */
+    .nav-right {
+        grid-column: 3 / 4;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
 /* ---------- Desktop layout: center nav buttons ---------- */
 /* Use a three-column grid so nav buttons can be centered on large screens */
 @media (min-width: 768px) {
