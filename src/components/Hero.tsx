@@ -30,7 +30,7 @@ const Hero = () => {
 
                         <div className="hero-socials">
                             <a
-                                href="https://www.linkedin.com/in/your-profile"
+                                href="https://www.linkedin.com/in/ezekiel-ivan-l-bb792532b/"
                                 className="pill"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -41,7 +41,7 @@ const Hero = () => {
                             </a>
 
                             <a
-                                href="https://github.com/your-username"
+                                href="https://github.com/ivanlelis"
                                 className="pill"
                                 target="_blank"
                                 rel="noopener noreferrer"
