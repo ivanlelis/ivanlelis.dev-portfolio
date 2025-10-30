@@ -143,6 +143,7 @@
             grid-template-columns: 1fr !important;
             gap: 1rem;
             min-height: 75vh;
+            max-height: 110vh;
         }
 
         .hero-visual-wrapper {
