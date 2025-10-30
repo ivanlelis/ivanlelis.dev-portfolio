@@ -92,25 +92,105 @@
         @apply h-full w-full object-cover;
     }
 
-    /* On smaller screens, add a tiny nudge if needed (much smaller than 4rem) */
-    @media (max-width: 767px) {
-        .hero-visual-wrapper {
-            transform: translateX(0.5rem);
+    @media (max-width: 639px) {
+        .hero-section {
+            min-height: 85vh;
+            max-height: 110vh;
         }
 
-        .hero-section {
-            min-height: 60vh;
-            max-height: 80vh;
+        .hero-grid {
+            gap: 1.5rem;
+            grid-template-columns: 1fr !important;
+            min-height: 70vh;
+            padding: 1rem 0;
+        }
+
+        .hero-text {
+            order: 1;
+            text-align: center;
+            space-y: 1.5rem;
+        }
+
+        .hero-visual-wrapper {
+            max-width: min(14rem, 80%);
+            margin: 2rem auto 0;
+            order: 2;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            line-height: 1.2;
+        }
+
+        .hero-cta {
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .hero-socials {
+            justify-content: center;
+        }
+
+        .hero-badges {
+            justify-content: center;
         }
     }
 
-    /* On medium+ screens, keep it centered within the grid column */
-    @media (min-width: 768px) {
+    /* Small (sm): 640px - 767px */
+    @media (min-width: 640px) and (max-width: 767px) {
+        .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1rem;
+            min-height: 75vh;
+        }
+
         .hero-visual-wrapper {
-            transform: translateX(0);
-            /* no transform to prevent overflow */
+            max-width: min(20rem, 90%);
+            margin: 1.5rem auto 0;
+            order: 2;
+            display: block;
+        }
+
+        .hero-text {
+            order: 1;
+            text-align: center;
+        }
+
+        .hero-section {
+            min-height: 90vh;
+            max-height: 100vh;
+        }
+    }
+
+    /* Medium (md): 768px - 1023px */
+    @media (min-width: 768px) and (max-width: 1023px) {
+        .hero-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2.5rem;
+            min-height: 60vh;
+        }
+
+        .hero-visual-wrapper {
+            max-width: min(22rem, 90%);
+            margin: 0 auto;
             justify-self: center;
-            left: 4.5rem;
+            order: 2;
+        }
+
+        .hero-text {
+            order: 1;
+            text-align: left;
+        }
+
+        .hero-socials,
+        .hero-cta,
+        .hero-badges {
+            justify-content: flex-start;
+        }
+
+        .hero-section {
+            min-height: 75vh;
         }
     }
 
