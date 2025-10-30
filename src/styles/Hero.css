@@ -95,7 +95,7 @@
     @media (max-width: 639px) {
         .hero-section {
             min-height: 85vh;
-            max-height: 110vh;
+            max-height: 140vh;
         }
 
         .hero-grid {
