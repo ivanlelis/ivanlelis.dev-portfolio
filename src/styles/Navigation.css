@@ -83,30 +83,84 @@
     }
 }
 
-@media (min-width: 1025px) {
-
-    /* make the inner glass container a grid with left/center/right columns */
+/* Medium Desktop (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
     nav .glass {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
         gap: 1rem;
-        max-width: 1210px;
+        max-width: 1000px;
         margin-left: auto;
         margin-right: auto;
         padding-left: 1rem;
         padding-right: 1rem;
     }
 
-    /* Brand sits in the left column */
     nav .glass .brand {
         grid-column: 1 / 2;
         justify-self: start;
         margin: 0;
-        /* ensure it's visible */
         position: static;
         transform: none;
         max-width: none;
+    }
+
+    .nav-center {
+        grid-column: 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nav-right {
+        grid-column: 3 / 4;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+}
+
+/* Large Desktop (1025px - 1279px) */
+@media (min-width: 1025px) and (max-width: 1279px) {
+    nav .glass {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 1rem;
+        max-width: 1200px;
+        /* Changed from 1000px to 1200px */
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    nav .glass .brand {
+        grid-column: 1 / 2;
+        justify-self: start;
+        margin: 0;
+        position: static;
+        transform: none;
+        max-width: none;
+    }
+
+    .nav-center {
+        grid-column: 2 / 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .nav-right {
+        grid-column: 3 / 4;
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 }
 
@@ -117,14 +171,14 @@
         grid-template-columns: auto 1fr auto;
         align-items: center;
         gap: 1.25rem;
-        max-width: 1200px;
+        max-width: 1300px;
+        /* Changed from 1600px to 1300px */
         margin-left: auto;
         margin-right: auto;
         padding-left: 2rem;
         padding-right: 2rem;
     }
 
-    /* Brand sits in the left column */
     nav .glass .brand {
         grid-column: 1 / 2;
         justify-self: start;
@@ -135,7 +189,6 @@
         font-size: 1.125rem;
     }
 
-    /* Nav center sits in the middle column and is centered horizontally */
     .nav-center {
         grid-column: 2 / 3;
         display: flex;
@@ -149,7 +202,6 @@
         font-size: 0.9rem;
     }
 
-    /* Nav right (e.g., actions) sits on the right */
     .nav-right {
         grid-column: 3 / 4;
         justify-self: end;
@@ -163,7 +215,8 @@
 @media (min-width: 1536px) {
     nav .glass {
         display: grid;
-        grid-template-columns: auto 1fr auto;
+        grid-template-columns: 1fr auto 1fr;
+        /* Changed from auto 1fr auto */
         align-items: center;
         gap: 1.5rem;
         max-width: 1400px;
@@ -173,7 +226,6 @@
         padding-right: 2.5rem;
     }
 
-    /* Brand sits in the left column */
     nav .glass .brand {
         grid-column: 1 / 2;
         justify-self: start;
@@ -181,10 +233,12 @@
         position: static;
         transform: none;
         max-width: none;
-        font-size: 1.25rem;
+        font-size: 1.4rem;
+        /* Even larger brand text */
+        padding-left: 2rem;
+        /* Most left padding */
     }
 
-    /* Nav center sits in the middle column and is centered horizontally */
     .nav-center {
         grid-column: 2 / 3;
         display: flex;
@@ -198,60 +252,19 @@
         font-size: 1rem;
     }
 
-    /* Nav right (e.g., actions) sits on the right */
     .nav-right {
         grid-column: 3 / 4;
         justify-self: end;
         display: flex;
         align-items: center;
         gap: 1rem;
+        padding-right: 2rem;
+        /* Most right padding */
     }
 }
 
-/* ---------- Desktop layout: center nav buttons ---------- */
-/* Use a three-column grid so nav buttons can be centered on large screens */
+/* Ensure mobile-only hiding doesn't break desktop visibility */
 @media (min-width: 768px) {
-
-    /* make the inner glass container a grid with left/center/right columns */
-    nav .glass {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
-        gap: 1rem;
-        /* constrain width so centering looks consistent on very wide screens */
-        max-width: 1210px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    /* Brand sits in the left column */
-    nav .glass .brand {
-        grid-column: 1 / 2;
-        justify-self: start;
-        margin: 0;
-    }
-
-    /* Nav center sits in the middle column and is centered horizontally */
-    .nav-center {
-        grid-column: 2 / 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    /* Nav right (e.g., actions) sits on the right */
-    .nav-right {
-        grid-column: 3 / 4;
-        justify-self: end;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    /* Ensure mobile-only hiding doesn't break desktop visibility */
     .nav-center[style*="display:none"] {
         display: flex !important;
     }

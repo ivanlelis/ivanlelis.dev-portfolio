@@ -107,7 +107,7 @@ nav .brand {
     }
 
     .container-w {
-        @apply max-w-7xl mx-auto px-6 sm:px-6 lg:px-40;
+        @apply max-w-7xl mx-auto px-6 sm:px-6 lg:px-40 2xl:px-64;
     }
 
     .section-title {
