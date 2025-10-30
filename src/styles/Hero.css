@@ -124,10 +124,19 @@
         .hero-grid {
             min-height: 60vh;
         }
+
+        .hero-section .hero-visual-wrapper {
+            /* More specific selector */
+            position: relative;
+            left: 2rem;
+        }
+
     }
 
     @media (min-width: 1536px) {
-        .hero-visual-wrapper {
+        .hero-section .hero-visual-wrapper {
+            /* More specific selector */
+            position: relative;
             left: 7.7rem;
         }
     }
