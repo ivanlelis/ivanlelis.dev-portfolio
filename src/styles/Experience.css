@@ -1,0 +1,159 @@
+@import '../common.css';
+
+@layer components {
+
+    /* header spacing for the section */
+    .experience-header {
+        @apply mb-10;
+    }
+
+    /* timeline container */
+    .timeline {
+        position: relative;
+    }
+
+    /* vertical rail */
+    .timeline-rail {
+        position: absolute;
+        left: 1rem;
+        /* tailwind left-4 */
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: rgba(255, 255, 255, 0.10);
+    }
+
+    @media (min-width: 640px) {
+        .timeline-rail {
+            left: 10rem;
+            /* sm:left-40 (10rem) */
+        }
+    }
+
+    /* list spacing */
+    .timeline-list {
+        @apply space-y-10;
+    }
+
+    /* each timeline item: relative positioning and left padding on md+ */
+    .timeline-item {
+        position: relative;
+        padding-left: 0;
+    }
+
+    @media (min-width: 640px) {
+        .timeline-item {
+            padding-left: 12rem;
+            /* sm:pl-48 (12rem) */
+        }
+    }
+
+    /* the round point that sits on the rail */
+    .timeline-point {
+        position: absolute;
+        left: 14px;
+        /* small-screen offset matching original left-[14px] */
+        top: 0.5rem;
+        /* tailwind top-2 */
+        height: 0.75rem;
+        /* h-3 */
+        width: 0.75rem;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa);
+        /* blue → purple */
+        box-shadow: 0 4px 12px rgba(96, 165, 250, 0.08);
+    }
+
+    @media (min-width: 640px) {
+        .timeline-point {
+            left: 156px;
+            /* sm:left-[156px] */
+        }
+    }
+
+    /*
+    Glassy timeline card
+    - frosted blur (backdrop-filter) applied to the card area
+    - translucent border + soft shadow for depth
+    - inner sheen using ::after (overlay) for glossy look
+    - hover/focus subtle lift and stronger border
+  */
+    .timeline-card {
+        position: relative;
+        z-index: 1;
+        /* ensure content sits above pseudo */
+        overflow: hidden;
+        border-radius: .75rem;
+        /* rounded-xl-ish */
+        padding: 1.25rem;
+        /* p-5 */
+        min-width: 0;
+
+        /* frosted glass */
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.015));
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+
+        /* soft shadow like Projects */
+        box-shadow: 0 8px 28px rgba(2, 6, 23, 0.45);
+
+        transition: transform .18s cubic-bezier(.2, .9, .2, 1), box-shadow .18s ease, border-color .18s ease;
+    }
+
+    /* sheen overlay (pseudo-element) */
+    .timeline-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.015) 30%, rgba(255, 255, 255, 0) 60%);
+        mix-blend-mode: overlay;
+        opacity: 0.95;
+        z-index: 0;
+    }
+
+    /* insure inner content is above the sheen */
+    .timeline-card>* {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* hover/focus affordance (visual only) */
+    @media (hover: hover) and (pointer: fine) {
+
+        .timeline-card:hover,
+        .timeline-card:focus-within {
+            transform: translateY(-6px);
+            box-shadow: 0 14px 40px rgba(2, 6, 23, 0.55);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+    }
+
+    /* text inside card */
+    .timeline-range {
+        @apply text-sm;
+        color: rgba(255, 255, 255, 0.72);
+    }
+
+    .timeline-role {
+        @apply mt-1 text-xl font-bold;
+        color: #fff;
+    }
+
+    .timeline-desc {
+        @apply mt-2;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* responsive tweaks to keep cards readable on small screens */
+    @media (max-width: 640px) {
+        .timeline-card {
+            padding: 1rem;
+            border-radius: .5rem;
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 20px rgba(2, 6, 23, 0.45);
+        }
+    }
+}

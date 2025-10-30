@@ -1,0 +1,128 @@
+@import '../common.css';
+
+@layer components {
+    .hero-section {
+        @apply section mt-12 sm:mt-14;
+        /* prevent section from growing beyond intended height */
+        min-height: 70vh;
+        max-height: 90vh;
+        /* contain absolute positioned blobs */
+        overflow: hidden;
+    }
+
+    .hero-container {
+        @apply container-w relative;
+        /* ensure the container never causes horizontal overflow */
+        max-width: 100%;
+        overflow: hidden;
+        /* contain the absolutely positioned background blobs */
+        height: 100%;
+    }
+
+    .hero-blob-left {
+        @apply pointer-events-none absolute rounded-full bg-purple-600/20 blur-3xl;
+        /* reduce size and keep within section bounds */
+        width: 240px;
+        height: 240px;
+        top: 10%;
+        left: -60px;
+    }
+
+    .hero-blob-right {
+        @apply pointer-events-none absolute rounded-full bg-blue-600/20 blur-3xl;
+        /* reduce size and position to stay within section */
+        width: 280px;
+        height: 280px;
+        top: 20%;
+        right: -40px;
+    }
+
+    .hero-grid {
+        @apply grid items-center gap-10 lg:grid-cols-2;
+        /* ensure grid doesn't overflow on any screen size */
+        max-width: 100%;
+        box-sizing: border-box;
+        /* center content vertically within the contained height */
+        min-height: 50vh;
+        align-content: center;
+    }
+
+    .hero-text {
+        @apply z-10 space-y-6;
+    }
+
+    .hero-badges {
+        @apply flex items-center gap-3;
+    }
+
+    .hero-title {
+        @apply text-4xl sm:text-6xl font-extrabold text-white;
+    }
+
+    .hero-title-sub {
+        @apply text-white/80;
+    }
+
+    .hero-sub {
+        @apply section-sub;
+    }
+
+    .hero-socials {
+        @apply flex flex-wrap items-center gap-3 pt-2;
+    }
+
+    .hero-cta {
+        @apply flex gap-3 pt-4;
+    }
+
+    .hero-visual-wrapper {
+        @apply relative mx-auto w-full max-w-md;
+        /* remove the translateX that was causing overflow on larger screens */
+        /* keep visual centered within its grid column */
+        position: relative;
+        max-width: min(28rem, 100%);
+        box-sizing: border-box;
+        left: 4.5rem;
+    }
+
+    .hero-visual {
+        @apply aspect-square glass gradient-ring overflow-hidden flex items-center justify-center;
+    }
+
+    .hero-img {
+        @apply h-full w-full object-cover;
+    }
+
+    /* On smaller screens, add a tiny nudge if needed (much smaller than 4rem) */
+    @media (max-width: 767px) {
+        .hero-visual-wrapper {
+            transform: translateX(0.5rem);
+        }
+
+        .hero-section {
+            min-height: 60vh;
+            max-height: 80vh;
+        }
+    }
+
+    /* On medium+ screens, keep it centered within the grid column */
+    @media (min-width: 768px) {
+        .hero-visual-wrapper {
+            transform: translateX(0);
+            /* no transform to prevent overflow */
+            justify-self: center;
+        }
+    }
+
+    /* On large screens, ensure proper height containment */
+    @media (min-width: 1024px) {
+        .hero-section {
+            min-height: 75vh;
+            max-height: 85vh;
+        }
+
+        .hero-grid {
+            min-height: 60vh;
+        }
+    }
+}

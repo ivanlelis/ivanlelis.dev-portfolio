@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens */
+:root {
+    --bg-1: #0a0f1c;
+    --bg-2: #0f1a33;
+    --bg-3: #0c1226;
+    --primary: #5b9dff;
+    --primary-2: #7c5cff;
+    --muted: 255 255 255 / 0.7;
+}
+
+/* Page background (radial gradients + subtle vignette) */
+html,
+body,
+#root {
+    height: 100%;
+}
+
+/* Prevent accidental horizontal scrolling site-wide and keep iOS momentum */
+html,
+body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+    @apply text-gray-200 antialiased;
+
+    /* layered gradients with softened top-right layer */
+    background:
+        radial-gradient(1200px 700px at 0% 0%, rgba(124, 92, 255, 0.12), transparent 60%),
+        radial-gradient(1400px 900px at 100% 5%, rgba(91, 157, 255, 0.06), transparent 65%),
+        radial-gradient(900px 600px at 50% 120%, rgba(28, 58, 120, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg-2), var(--bg-1) 40%, var(--bg-3));
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 1200px 700px, 1400px 900px, 900px 600px, cover;
+    background-position: 0% 0%, 100% 5%, 50% 120%, center;
+}
+
+/* Smooth scrolling and anchor offset for fixed nav */
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Defensive responsive / overflow helpers --- */
+/* Make sure root containers can't overflow horizontally */
+#root,
+body>.container-w,
+.container-w {
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Prefer width:100% (not 100vw) for full-bleed elements */
+.full-bleed,
+.full-width {
+    width: 100%;
+}
+
+/* Make images/media responsive (common cause of horizontal overflow) */
+img,
+picture,
+video,
+iframe,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Keep the brand from overflowing into the left burger area on small screens */
+.brand,
+nav .brand {
+    max-width: calc(100% - 88px);
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Safety clamp for any accidental 100vw usage in inline styles / libs */
+*[style*="100vw"],
+.uses-100vw {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Small screens: ensure the mobile sidebar stays within viewport bounds */
+@media (max-width: 767px) {
+    .mobile-sidebar {
+        width: min(86vw, 320px);
+        max-width: 86vw;
+        box-sizing: border-box;
+    }
+}
+
+/* Tailwind component utilities */
+@layer components {
+    .section {
+        @apply relative py-20 sm:py-24 scroll-mt-24;
+    }
+
+    .container-w {
+        @apply max-w-7xl mx-auto px-6 sm:px-6 lg:px-40;
+    }
+
+    .section-title {
+        @apply text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4;
+    }
+
+    .section-sub {
+        @apply text-base sm:text-lg text-white/70 max-w-2xl;
+    }
+
+    .divider {
+        @apply w-24 h-[3px] rounded bg-gradient-to-r from-blue-500 to-purple-500;
+    }
+
+    .glass {
+        @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+        /* custom box-shadow instead of using Tailwind arbitrary class with commas */
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .glass-hover {
+        /* preserve transition and transform capabilities via Tailwind */
+        @apply transition-transform duration-300 transform;
+    }
+
+    .glass-hover:hover {
+        /* approximate -translate-y-0.5 (0.125rem) with a small translateY */
+        transform: translateY(-2px);
+        /* custom hover shadow */
+        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    .pill {
+        @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-white/10 text-white/80 border border-white/10;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold text-blue-100 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 transition-colors shadow-lg shadow-blue-900/20;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 font-semibold text-white/90 border border-white/15 hover:bg-white/10 transition-colors;
+    }
+
+    .outlined-text {
+        color: transparent;
+        -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .gradient-ring {
+        position: relative;
+        isolation: isolate;
+        /* create a local stacking context so ::before won't escape */
+        z-index: 0;
+        /* ensure stacking is explicit */
+    }
+
+    .gradient-ring::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        /* keep the ring strictly inside the element bounds */
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(124, 92, 255, 0.7), rgba(91, 157, 255, 0.7));
+        filter: blur(10px);
+        opacity: .25;
+        z-index: -1;
+        /* sits behind the element but inside its stacking context */
+        pointer-events: none;
+        /* don't block pointer events */
+    }
+
+    /* --- Semantic Margin Utilities --- */
+
+    /* Section spacing - for separating major page sections */
+    .section-margin {
+        @apply my-16 sm:my-20 md:my-24 lg:my-32;
+    }
+
+    /* Component spacing - for spacing between components within a section */
+    .component-margin {
+        @apply my-8 sm:my-12 md:my-16;
+    }
+
+    /* Element spacing - for spacing between elements within a component */
+    .element-margin {
+        @apply my-4 sm:my-6;
+    }
+
+    /* Card spacing - for spacing around cards and similar elements */
+    .card-margin {
+        @apply m-4 sm:m-6;
+    }
+
+    /* Hero specific margins */
+    .hero-margin {
+        @apply mt-12 sm:mt-16 md:mt-20 mb-8 sm:mb-12 md:mb-16;
+    }
+
+    /* Navigation spacing */
+    .nav-margin {
+        @apply mb-10 sm:mb-12;
+    }
+
+    /* Content block spacing */
+    .content-margin {
+        @apply mb-6 sm:mb-8 md:mb-10;
+    }
+
+    /* Auto centering helpers */
+    .center-x {
+        @apply mx-auto;
+    }
+
+    .center-y {
+        @apply my-auto;
+    }
+
+    .center-both {
+        @apply mx-auto my-auto;
+    }
+
+    /* Responsive auto margins */
+    .sm-center-x {
+        @apply sm:mx-auto;
+    }
+
+    .md-center-x {
+        @apply md:mx-auto;
+    }
+
+    .lg-center-x {
+        @apply lg:mx-auto;
+    }
+}

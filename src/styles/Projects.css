@@ -1,0 +1,127 @@
+@import '../common.css';
+
+@layer components {
+
+    /* Header */
+    .projects-header {
+        @apply mb-10 flex items-end justify-between gap-4;
+    }
+
+    /* List wrapper */
+    .projects-list {
+        @apply space-y-6;
+    }
+
+    /*
+    Project card: stronger glass appearance
+    - backdrop blur for frosted-glass
+    - subtle translucent border
+    - inner sheen using ::after
+    - gentle hover lift
+  */
+    .project-card {
+        @apply relative rounded-xl p-5 sm:p-6 overflow-hidden;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        transition: transform .18s cubic-bezier(.2, .9, .2, 1), box-shadow .18s ease, border-color .18s ease;
+    }
+
+    /* subtle inner sheen */
+    .project-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 30%, rgba(255, 255, 255, 0) 60%);
+        mix-blend-mode: overlay;
+        opacity: 0.9;
+        transform: translateZ(0);
+    }
+
+    /* hover state: lift + stronger highlight */
+    .project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 36px rgba(2, 6, 23, 0.65);
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    /* make sure inner content sits above pseudo-elements */
+    .project-card>* {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Row layout inside each card */
+    .project-row {
+        @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .project-main {
+        @apply flex items-start gap-4;
+    }
+
+    /* Visual area: fixed square, overflows hidden so the image is cropped */
+    .project-visual {
+        @apply flex-shrink-0 rounded-lg overflow-hidden bg-white/5 flex items-center justify-center;
+        width: 72px;
+        height: 72px;
+    }
+
+    @media (min-width: 640px) {
+        .project-visual {
+            width: 96px;
+            height: 96px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .project-visual {
+            width: 128px;
+            height: 128px;
+        }
+    }
+
+    /* Image inside the square: cover and fill the container (cropped) */
+    .project-img {
+        @apply w-full h-full object-cover;
+        display: block;
+        /* allow inline style object-position to take effect */
+        object-position: center;
+    }
+
+    /* Emoji fallback (centered inside the same square) */
+    .project-icon {
+        @apply inline-flex items-center justify-center text-2xl w-full h-full;
+        font-size: 1.25rem;
+    }
+
+    .project-title {
+        @apply text-xl font-bold text-white;
+    }
+
+    .project-desc {
+        @apply mt-1 text-white/70;
+        /* if you prefer a 2-line clamp instead, uncomment the lines below:
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    */
+    }
+
+    .project-meta {
+        @apply mt-3 flex flex-wrap gap-2;
+    }
+
+    .project-actions {
+        @apply flex shrink-0 items-center gap-2;
+    }
+
+    .projects-more {
+        @apply mt-8 flex justify-center;
+    }
+}

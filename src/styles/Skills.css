@@ -1,0 +1,139 @@
+@import '../common.css';
+
+@layer components {
+
+    /* Header row */
+    .skills-header {
+        @apply mb-8 flex items-end justify-between;
+    }
+
+    /* Outer scroll viewport: hide overflow */
+    .skills-scroll {
+        overflow: hidden;
+        padding-block: 0.25rem;
+    }
+
+    /*
+    Track contains two adjacent copies of the same inner group.
+    We measure the inner group's pixel width at runtime and animate by that value.
+  */
+    .skills-track {
+        display: flex;
+        gap: 0;
+        align-items: center;
+        white-space: nowrap;
+        will-change: transform;
+        transform: translateZ(0);
+    }
+
+    /* the measured inner group (duplicated) */
+    .skills-track-inner {
+        display: flex;
+        gap: 1rem;
+        /* gap between cards */
+        align-items: center;
+
+        /* add a small end padding so there is space between the end of the first
+           inner group and the start of its duplicate; adjusts the measured width */
+        padding-inline-end: 1rem;
+        /* change this value to increase/decrease the loop gap */
+    }
+
+    .skill-card {
+        box-sizing: border-box;
+        width: 180px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 0.75rem;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+
+        /* translucent gradient for depth */
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.015));
+        /* subtle frosted border */
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        /* light outer shadow for separation */
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.45);
+
+        /* keep expensive filters OFF per-card; rely on translucent background & border */
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+
+        /* render optimization hints */
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+    }
+
+    /* glossy sheen inside each card (cheap — small gradient overlay) */
+    .skill-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 25%, rgba(255, 255, 255, 0) 50%);
+        mix-blend-mode: overlay;
+        opacity: 0.9;
+        transform: translateZ(0);
+    }
+
+    /* focus/hover affordance (visual only — doesn't shift layout) */
+    .skill-card:focus-within,
+    .skill-card:hover {
+        border-color: rgba(255, 255, 255, 0.12);
+        box-shadow: 0 10px 28px rgba(2, 6, 23, 0.5);
+        transform: translateY(-3px);
+        /* subtle lift, keep it small */
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .skill-icon {
+        @apply mb-3 flex items-center justify-center;
+        line-height: 1;
+        /* keep icon rendering cheap */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .skill-icon svg {
+        display: block;
+        color: inherit;
+    }
+
+    .skill-name {
+        @apply text-sm font-semibold text-white;
+        text-align: center;
+    }
+
+    /* pause on hover/focus for accessibility */
+    .skills-scroll:hover .skills-track,
+    .skills-track:focus-within {
+        animation-play-state: paused;
+    }
+
+    /* animate by runtime-measured width */
+    @keyframes scroll-left {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(calc(-1 * var(--marquee-width, 50%)));
+        }
+    }
+
+    /* responsive tweaks */
+    @media (max-width: 640px) {
+        .skill-card {
+            width: 140px;
+        }
+
+        .skills-track {
+            --scroll-speed: 14s;
+        }
+    }
+}
